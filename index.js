@@ -22,7 +22,7 @@ function success(res, payload) {
 app.use(express.static(path.join(__dirname, "./Task-Front-End/dist")));
 app.get("/", function (_, res) {
     res.sendFile(
-      path.join(__dirname, "./client/dist/index.html"),
+      path.join(__dirname, "./Task-Front-End/dist/index.html"),
       function (err) {
         res.status(500).send(err);
       }
