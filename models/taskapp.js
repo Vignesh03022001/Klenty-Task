@@ -7,10 +7,8 @@ const taskSchema = new mongoose.Schema({
     unique: true, 
     required: true,
   },
-  completed: {
-    type: Boolean, 
-    default: false, 
-  },
+},{
+  timestamps:true
 })
 
 const taskModel = mongoose.model("Task", taskSchema) 

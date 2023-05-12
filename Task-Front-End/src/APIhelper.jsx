@@ -1,7 +1,8 @@
 
 import axios from "axios"
 
-const API_URL = "http://localhost:8000/tasks/"
+// const API_URL = "http://localhost:8000/tasks/"
+const API_URL = "/tasks/"
 
 async function createTask(task) {
   const { data: newTask } = await axios.post(API_URL, {
@@ -16,13 +17,14 @@ async function deleteTask(id) {
 }
 
 async function updateTask(id, payload) {
+  console.log(payload.task)
   const { data: newTask } = await axios.put(`${API_URL}${id}`, payload)
   return newTask
 }
 
 async function getAllTasks() {
-  const { data: todos } = await axios.get(API_URL)
-  return todos
+  const { data: tasks } = await axios.get(API_URL)
+  return tasks
 }
 
 export default { createTask, deleteTask, updateTask, getAllTasks }

@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8000
 app.use(bodyParser.json()) 
 const db = require("./models")
 const webpush = require("web-push")
+const path = require("path")
 
 const cors = require("cors")
 app.use(cors())
@@ -18,7 +19,15 @@ webpush.setVapidDetails("mailto: <shrivigneshprasanna@gmail.com>",publicVapidKey
 function success(res, payload) {
     return res.status(200).json(payload)
   }
-  
+app.use(express.static(path.join(__dirname, "./Task-Front-End/dist")));
+app.get("/", function (_, res) {
+    res.sendFile(
+      path.join(__dirname, "./client/dist/index.html"),
+      function (err) {
+        res.status(500).send(err);
+      }
+    );
+  });
   app.post("/to", async (req,res) =>{
     const subscription = req.body;
     res.status(201).json({})
