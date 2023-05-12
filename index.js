@@ -19,10 +19,10 @@ webpush.setVapidDetails("mailto: <shrivigneshprasanna@gmail.com>",publicVapidKey
 function success(res, payload) {
     return res.status(200).json(payload)
   }
-app.use(express.static(path.join(__dirname, "./Task-Front-End/build")));
+app.use(express.static(path.join(__dirname, "./Task-Front-End/dist")));
 app.get("/", function (_, res) {
     res.sendFile(
-      path.join(__dirname, "./client/dist/index.html"),
+      path.join(__dirname, "./Task-Front-End/dist/index.html"),
       function (err) {
         res.status(500).send(err);
       }
