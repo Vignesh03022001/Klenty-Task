@@ -1,8 +1,8 @@
 
 import axios from "axios"
 
-// const API_URL = "http://localhost:8000/tasks/"
-const API_URL = "/tasks/"
+const API_URL = "http://localhost:8000/tasks/"
+// const API_URL = "/tasks/"
 
 async function createTask(task) {
   const { data: newTask } = await axios.post(API_URL, {
@@ -23,7 +23,13 @@ async function updateTask(id, payload) {
 }
 
 async function getAllTasks() {
-  const { data: tasks } = await axios.get(API_URL)
+  const { data:tasks } = await axios.get(API_URL)
+  tasks.map((e)=>{
+    // console.log(e.createdAt)
+    const date = new Date(e.createdAt)
+    date.toTimeString()
+    console.log(date);
+  })
   return tasks
 }
 

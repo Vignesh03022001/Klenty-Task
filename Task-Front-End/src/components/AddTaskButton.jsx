@@ -15,7 +15,7 @@ const AddTaskSticky = () => {
   let [editable, setEditable] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
-  console.log(tasks);
+  // console.log(tasks);
 
   useEffect(() => {
     const fetchTaskAndSetTasks = async () => {
@@ -26,17 +26,18 @@ const AddTaskSticky = () => {
   }, []);
 
   const createTask = async (e) => {
-    e.preventDefault();
+    e.stopPropagation()
     if (!task) {
       alert("please enter something");
       return;
     }
-    if (tasks.some(({ task }) => task === task)) {
-      alert(`Task: ${task} already exists`);
-      return;
-    }
+    // if (tasks.some(({ any }) => any === task)) {
+    //   alert(`Task: ${task} already exists`);
+    //   return;
+    // }
+    console.log(task)
     const newTask = await APIHelper.createTask(task);
-    setTasks([...tasks, newTask]);
+    setTasks([newTask,...tasks]);
   };
   const deleteTask = async (e, id) => {
     try {
@@ -89,6 +90,7 @@ const AddTaskSticky = () => {
               >
                 {task}
               </span>
+              <span></span>
               <button
                 className="text-white bg-slate-800 p-2 rounded-full hover:bg-slate-500"
                 onClick={(e) => {
@@ -130,16 +132,18 @@ const AddTaskSticky = () => {
               className="my-3 block w-6/6 md:w-4/6 rounded-md border-0 py-2 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:text-sm sm:leading-6"
               placeholder="Enter Task Title"
               value={task}
-              onChange={({ target }) => setTask(target.value)}
+              onChange={(e)=>{
+                setTask(e.target.value)
+              }}
             />
             {/* <input type="text" className="my-3 block md:w-4/6 rounded-md border-0 py-2 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-600 sm:text-sm sm:leading-6" placeholder="Enter Task Description" /> */}
           </div>
           <div className="flex justify-center">
             <button
               className="rounded-lg bg-slate-900 text-center text-white p-3 m-2"
-              onClick={() => {
+              onClick={(e) => {
                 setIsOpen(false);
-                createTask();
+                createTask(e);
               }}
             >
               Save
